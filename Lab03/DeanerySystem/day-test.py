@@ -1,5 +1,5 @@
 import unittest
-from Lab03.DeanerySystem.day import Day, nthDayFrom
+from day import Day, nthDayFrom
 
 
 class Test_TestDay(unittest.TestCase):

@@ -14,31 +14,26 @@ class Term:
         day_name = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"]
         return f"{day_name[self.__day.value]} {self.hour}:{self.minute} [{self.duration}]"
 
-# TODO: Nie działa - 1 > 2
     def earlierThan(self, termin):
-        if termin._Term__day.value > self.__day.value:
+        if self.__day.value < termin._Term__day.value:
             return True
-        elif termin.hour > self.hour:
+        elif self.hour < termin.hour and self.__day.value <= termin._Term__day.value:
             return True
-        elif termin.minute > self.minute:
+        elif self.minute < termin.minute and self.hour <= termin.hour and self.__day.value <= termin._Term__day.value:
             return True
         else:
             return False
 
-# TODO: Nie działa - 1 > 2 - faza testów
     def laterThan(self, termin):
-        if termin._Term__day.value < self.__day.value:
-            print(termin._Term__day.value," ",self.__day.value)
+        if self.__day.value > termin._Term__day.value:
             return True
-        if termin.hour < self.hour:
-            print(termin.hour," ",self.hour)
+        elif self.hour > termin.hour and self.__day.value >= termin._Term__day.value:
             return True
-        if termin.minute < self.minute:
-            print(termin.minute," ",self.minute)
+        elif self.minute > termin.minute and self.hour >= termin.hour and self.__day.value >= termin._Term__day.value:
             return True
-        return False
+        else:
+            return False
 
-# TODO: To w sumie działa, ale lepiej sprawdzić
     def equals(self, termin):
         if termin._Term__day.value == self.__day.value and termin.hour == self.hour and termin.minute == self.minute:
             return True
