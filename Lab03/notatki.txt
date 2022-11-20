@@ -1,4 +1,0 @@
-Metoda instancyjna - funkcja przeznaczona dla obiektu danej klasy
-Metoda klasowa - metoda dla klasy, może modyfikować klasę, przyjumuje cls na początku - czyli klasę
-Metoda statyczna - funkcja dla klasy - normalna funkcja, która nie modyfikuje klasy
-
