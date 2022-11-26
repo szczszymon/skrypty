@@ -1,1 +1,1 @@
-import sys; from collections import Counter; print(dict(Counter(map(len, sys.stdin.read().split()))))
+import sys; from collections import Counter as Ctr; print(dict(Ctr(map(lambda x: len(x), sys.stdin.read().split()))))

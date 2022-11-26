@@ -6,12 +6,12 @@ def argumenty(def_val):
         def get_def(*args):
             args_list = list(args)
             def_no_args = len(list(signature(func).parameters))
-            missing_args = def_no_args - len(list(args))
+            missing = def_no_args - len(list(args))
 
-            if missing_args > len(def_val):
+            if missing > len(def_val):
                 raise TypeError(f'{func.__name__} takes exactly {def_no_args} arguments ({len(def_val) + len(args_list)} given)')
 
-            for i in range(missing_args):
+            for i in range(missing):
                 args_list.append(def_val[i])
 
             return func(*args_list)

@@ -19,6 +19,7 @@ class test_operacje(unittest.TestCase):
 
     def test_odejmowanie(self):
         oper = Operacje()
+
         self.assertEqual(oper.roznica(2, 1), 1)
         self.assertEqual(oper.roznica(2), -2)
         self.assertEqual(oper.roznica(), -1)
