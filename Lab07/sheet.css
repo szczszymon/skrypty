@@ -1,33 +1,104 @@
-.azure{
+.azure {
     background-color: azure;
-    box-shadow: 0px 0px 8px 1px black;
+    box-shadow: 0 0 3px 0.5mm #A8A8A8;
     border: 1px solid black;
-}
-
-aside  {
-    /* Specyfikacja wyglądu */
-}
-
-footer {
-    /* Specyfikacja wyglądu */
+    margin: 12px;
 }
 
 header {
-    /* Specyfikacja wyglądu */
-}
-
-main {
-    /* Specyfikacja wyglądu */
+    padding-left: 10px;
+    height: auto;
+    background-color: #EFF;
+    border-color: #A8A8A8;
 }
 
 nav {
-    /* Specyfikacja wyglądu */
+    padding: 10px 15px 10px 20px;
+    width: auto;
+    height: auto;
+    float: left;
 }
 
-nav ul {
-    /* Specyfikacja wyglądu */
+aside {
+    padding: 0 16.5% 10px 10px;
+    float: right;
+    width: auto;
 }
 
-nav li {
-    /* Specyfikacja wyglądu */
+main {
+    float: left;
+    clear: left;
+    padding: 10px 0 15px 12px;
+}
+
+main blockquote {
+    margin-left: 0;
+    margin-right: 5px;
+    font-size: 1.5vw;
+}
+
+footer {
+    padding: 10px;
+    clear: both;
+    height: auto;
+}
+
+a {
+    font-size: 2vw;
+}
+
+h1 {
+    margin: 5px auto;
+    font-size: 3.5vw;
+}
+
+aside h1:first-of-type {
+    animation: red_blue 2s infinite alternate;
+    -webkit-animation: red_blue 2s infinite alternate;
+}
+
+@keyframes red_blue {
+    from {
+        color: red;
+    }
+
+    to {
+        color: blue;
+    }
+}
+
+@-webkit-keyframes red_blue {
+    from {
+        color: red;
+    }
+
+    to {
+        color: blue;
+    }
+}
+@media only screen and (max-width: 800px){
+    header {
+        float: none;
+        width: inherit;
+    }
+
+    nav {
+        float: none;
+        width: inherit;
+    }
+
+    aside {
+        float: none;
+        width: inherit;
+    }
+
+    main {
+        float: none;
+        width: inherit;
+    }
+
+    footer {
+        float: none;
+        width: inherit;
+    }
 }
