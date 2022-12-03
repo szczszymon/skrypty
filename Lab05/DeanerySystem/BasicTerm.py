@@ -70,11 +70,3 @@ class BasicTerm:
 
         return BasicTerm(h, m, self.duration)
 
-    # TODO:
-    #   remove added end() to BasicTerm and rewrite str in Timetables
-    #   check if skipping breaks works
-    #   create new tests
-    #   check exceptions
-    #   create false translations and overlapping terms in tests
-    #   check 4.5 sth about BaseExceptions
-    #   survive.

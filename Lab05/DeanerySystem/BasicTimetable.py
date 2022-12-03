@@ -15,7 +15,6 @@ class BasicTimetable(ABC):
         if self.get(term) is not None:
             return True
         return False
-    # TODO: zmienic timetable na dct oraz forme wyszukiwania klucza (jurczyk - dict_key in term), naprawic bledy.
 
 ##########################################################
 
