@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+</head>
+<body>
+    <main>
+        <h1>
+            Płótno
+        </h1>
+
+        <h1>
+            Canvas
+        </h1>
+
+        <canvas id="canvas" width="200" height="300" style="border: 1px solid #000;">
+            It looks like your browser does not support the "canvas" element
+        </canvas>
+
+        <script>
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+
+            ctx.fillText("Hello World", 10, 40); // Drawing given text on canvas
+
+            // Napis
+
+            ctx.shadowColor = '#825FCA';    // styl cieni
+            ctx.shadowBlur = 4;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            ctx.strokeRect(25, 97, 142, 65)     // ramka
+
+            ctx.lineWidth = 1.5;    // styl napisu
+            ctx.strokeStyle='#201F1F';
+
+            ctx.font = '48px Arial';    // napis
+            ctx.textAlign = 'center';
+            ctx.strokeText("Bicykl", 96, 145, 200)
+
+            // Rower
+
+            ctx.lineWidth = 5;      // styl roweru
+            ctx.shadowBlur = 14;
+
+            ctx.moveTo(53, 212);    // siedzenie
+            ctx.lineTo(78, 212)
+
+            ctx.moveTo(66, 213);    // wsparcie siedzenia
+            ctx.lineTo(78, 235);
+
+            ctx.moveTo(75, 235);    // rama
+            ctx.lineTo(125, 235);
+
+            ctx.moveTo(145, 243);   // wsparcie kierownicy
+            ctx.lineTo(125, 198);
+
+            ctx.moveTo(118, 200);   // kierownica
+            ctx.lineTo(143, 195);
+
+            ctx.moveTo(80, 250);    // lewe koło
+            ctx.arc(55, 250, 25, 0, 2 * Math.PI, false);
+
+            ctx.moveTo(170,250);    // prawe koło
+            ctx.arc(145, 250, 25, 0, 2 * Math.PI, false);
+
+            ctx.stroke();
+        </script>
+    </main>
+</body>
+</html>
