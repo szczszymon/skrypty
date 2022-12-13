@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form>
+        <input id="counter" name="counter" type="text"><br><br>
+        <span>0</span><br>
+        <span>0</span><br>
+        <span>0</span><br>
+        <span>0</span><br>
+        <span>0</span><br>
+        <span>0</span><br>
+        <span>0</span><br>
+    </form>
+
+    <script>
+        let data = document.getElementById("counter");
+        data.value = 10;
+
+        for (let elem of document.querySelectorAll("span"))
+            elem.innerHTML = "10";
+
+        setInterval(() => {
+            let counter = parseInt(data.value);
+
+            if (counter <= 0 || isNaN(counter))
+                return;
+
+            data.value = --counter;
+            for (let elem of document.querySelectorAll("span"))
+                elem.innerHTML = counter;
+            }, 1000);
+    </script>
+</body>
+</html>
