@@ -141,7 +141,7 @@ function borrow(args){
         return;
     }// if
 
-    if (!borrowers.includes([args[4], args[5]]))
+    if (!borrowersContain(args[4], args[5]))
         borrowers.push([args[4], args[5]]);
 
     let index = findID(args[4], args[5]);
@@ -162,7 +162,12 @@ function borrow(args){
                     }//else if
 
                     state[0][1] -= parseInt(args[2]);
-                    borrowed.push([vehicles[0], borrowers[index], args[3]]);
+                    if (borrowedContain(vehicles[0], borrowers[index], parseInt(args[3]))){
+                        let borrowIndex = borrowedFindID(vehicles[0], borrowers[index], parseInt(args[3]));
+                        borrowed[borrowIndex][2] += parseInt(args[2]);
+                    }// if
+                    else
+                        borrowed.push([vehicles[0], borrowers[index], parseInt(args[2]), parseInt(args[3])]);
                     break;
 
                 case "indiana":
@@ -177,7 +182,12 @@ function borrow(args){
                     }//else if
 
                     state[1][1] -= parseInt(args[2]);
-                    borrowed.push([vehicles[1], borrowers[index], args[3]]);
+                    if (borrowedContain(vehicles[1], borrowers[index], parseInt(args[3]))){
+                        let borrowIndex = borrowedFindID(vehicles[1], borrowers[index], parseInt(args[3]));
+                        borrowed[borrowIndex][2] += parseInt(args[2]);
+                    }// if
+                    else
+                        borrowed.push([vehicles[1], borrowers[index], parseInt(args[2]), parseInt(args[3])]);
                     break;
 
                 default:
@@ -201,7 +211,12 @@ function borrow(args){
                     }//else if
 
                     state[2][1] -= parseInt(args[2]);
-                    borrowed.push([vehicles[2], borrowers[index], args[3]]);
+                    if (borrowedContain(vehicles[2], borrowers[index], parseInt(args[3]))){
+                        let borrowIndex = borrowedFindID(vehicles[2], borrowers[index], parseInt(args[3]));
+                        borrowed[borrowIndex][2] += parseInt(args[2]);
+                    }// if
+                    else
+                        borrowed.push([vehicles[2], borrowers[index], parseInt(args[2]), parseInt(args[3])]);
                     break;
 
                 default:
@@ -217,26 +232,144 @@ function borrow(args){
 
 }// borrow()
 
-// TODO: finish ret(), include checking if vehicle was borrowed previously, if that was last vehicle borrowed by some1
-//  remove them from borrowers list, someone borrowed 4 vehicles, returned 2 od them - just reduce number on borrowed list
 function ret(args){
     if (args.length <= 0) {
         empty();
         return;
     }// if
-    else if (args.length < 3 || args.length > 5){
-        alert("Błąd składni: min liczba argumentów operacji: 5 (borrow [rodzaj] [marka] [ilość] [imie] [nazwisko])");
+    else if (args.length < 3 || args.length > 6){
+        alert("Błąd składni: min liczba argumentów operacji: 6 (return [rodzaj] [marka] [ilość] [czas] [imie] [nazwisko])");
         return;
     }// else if
 
+    if (!borrowersContain(args[4], args[5])) {
+        alert("Błąd zwrotu: dana osoba nigdy nie dokonała wypożyczenia");
+        return;
+    }//if
+
+    let index = findID(args[4], args[5]);
+
+    switch (args[0]){
+        case "rower":
+        case "Rower":
+            switch (args[1]){
+                case "hiland":
+                case "Hiland":
+                    if (!borrowedContain(vehicles[0], borrowers[index], parseInt(args[3]))){
+                        alert("Błąd zwrotu: dana osoba nigdy nie wypożyczyła takiego pojazdu");
+                        return;
+                    }// if
+                    else {
+                        let borrowIndex = borrowedFindID(vehicles[0], borrowers[index], parseInt(args[3]));
+
+                        if (borrowed[borrowIndex][2] < parseInt(args[2])) {
+                            alert("Błąd zwrotu: dana osoba chce zwrócić więcej sztuk pojazdu niż wypożyczyła")
+                            return;
+                        }// if
+
+                        state[0][1] += parseInt(args[2]);
+
+                        if (borrowed[borrowIndex][2] === parseInt(args[2]))
+                            borrowed.splice(borrowIndex, 1);
+                        else
+                            borrowed[borrowIndex][2] -= parseInt(args[2]);
+
+                        if (!borrowedContainPerson(borrowers[index]))
+                            borrowers.splice(index, 1);
+                    }// else
+                    break;
+
+                case "indiana":
+                case "Indiana":
+                    if (!borrowedContain(vehicles[1], borrowers[index], parseInt(args[3]))){
+                        alert("Błąd zwrotu: dana osoba nigdy nie wypożyczyła takiego pojazdu");
+                        return;
+                    }// if
+                    else {
+                        let borrowIndex = borrowedFindID(vehicles[1], borrowers[index], parseInt(args[3]));
+
+                        if (borrowed[borrowIndex][2] < parseInt(args[2])) {
+                            alert("Błąd zwrotu: dana osoba chce zwrócić więcej sztuk pojazdu niż wypożyczyła")
+                            return;
+                        }// if
+
+                        state[1][1] += parseInt(args[2]);
+
+                        if (borrowed[borrowIndex][2] === parseInt(args[2]))
+                            borrowed.splice(borrowIndex, 1);
+                        else
+                            borrowed[borrowIndex][2] -= parseInt(args[2]);
+
+                        if (!borrowedContainPerson(borrowers[index]))
+                            borrowers.splice(index, 1);
+                    }// else
+                    break;
+
+                default:
+                    alert("Błąd składni: podano złą markę");
+                    return;
+            }//switch
+            break;
+
+        case "hulajnoga":
+        case "Hulajnoga":
+            switch (args[1]) {
+                case "jivr":
+                case "JIVR":
+                    if (!borrowedContain(vehicles[2], borrowers[index], parseInt(args[3]))){
+                        alert("Błąd zwrotu: dana osoba nigdy nie wypożyczyła takiego pojazdu");
+                        return;
+                    }// if
+                    else {
+                        let borrowIndex = borrowedFindID(vehicles[2], borrowers[index], parseInt(args[3]));
+
+                        if (borrowed[borrowIndex][2] < parseInt(args[2])) {
+                            alert("Błąd zwrotu: dana osoba chce zwrócić więcej sztuk pojazdu niż wypożyczyła")
+                            return;
+                        }// if
+
+                        state[2][1] += parseInt(args[2]);
+
+                        if (borrowed[borrowIndex][2] === parseInt(args[2]))
+                            borrowed.splice(borrowIndex, 1);
+                        else
+                            borrowed[borrowIndex][2] -= parseInt(args[2]);
+
+                        if (!borrowedContainPerson(borrowers[index]))
+                            borrowers.splice(index, 1);
+                    }// else
+                    break;
+
+                default:
+                    alert("Błąd składni: podano złą markę");
+                    return;
+            }//switch
+            break;
+
+        default:
+            alert("Błąd składni: podano zły rodzaj pojazdu");
+            return;
+    }// switch
 }// ret()
 
-// TODO: finish list(args) it has do display ALL vehicles SORTED BY person from borrowers list in pretty format (no []s)
-function list(args){
+function list(){
+    for (let person of borrowers){
+        let output = "";
+        let kwota = 0;
+        output += person[0] + " " + person[1] + ": ";
 
+        for (let item of borrowed){
+            if (person[0] === item[1][0] && person[1] === item[1][1]){
+                kwota += 3 * parseInt(item[3]) * parseInt(item[2]);
+                output += item[0][0] + " " + item[0][1] + " w ilości:" + item[2] + " na czas:" + item[3] + " minut o wartości:" + parseInt(item[3]) * 3 * parseInt(item[2]) + "zł\n";
+            }//if
+        }// for
+        output += "Łączna wartość wypożyczeń: " + kwota;
+        console.log(output);
+    }// for
 }// list()
 
-function available(args){
+function available(){
     let output = "";
 
     for (let i = 0; i < 3; i++){
@@ -246,10 +379,36 @@ function available(args){
     console.log(output);
 }// available()
 
+function borrowersContain(name, surname){
+    return borrowers.some((element) => element[0] === name && element[1] === surname);
+}// borrowersContain()
+
+function borrowedContain(vehicle, person, time){
+    for (let i = 0; i < borrowed.length; i++) {
+        if (borrowed[i][0][0] === vehicle[0] && borrowed[i][0][1] === vehicle[1] && borrowed[i][1][0] === person[0] && borrowed[i][1][1] === person[1] && borrowed[i][3] === time)
+            return true;
+    }// for
+    return false;
+}// borrowedContain()
+
+function borrowedContainPerson(person){
+    for (let i = 0; i < borrowed.length; i++) {
+        if (borrowed[i][1][0] === person[0] && borrowed[i][1][1] === person[1])
+            return true;
+    }// for
+    return false;
+}// borrowedContain()
+function borrowedFindID(vehicle, person, time){
+    for (let i = 0; i < borrowed.length; i++) {
+        if (borrowed[i][0][0] === vehicle[0] && borrowed[i][0][1] === vehicle[1] && borrowed[i][1][0] === person[0] && borrowed[i][1][1] === person[1] && borrowed[i][3] === time)
+            return i;
+    }// for
+}// borrowedFindID()
+
 function findID(name, surname){
     const check = (element) => element[0] === name && element[1] === surname;
     return borrowers.findIndex(check);
-}// findID
+}// findID()
 
 function empty(){
     alert("Błąd składni: brak argumentów dla właściwej operacji");
