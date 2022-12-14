@@ -10,6 +10,11 @@ let state = [
     [vehicles[1], 0],
     [vehicles[2], 0]
 ];
+let total = [
+    [vehicles[0], 0],
+    [vehicles[1], 0],
+    [vehicles[2], 0]
+];
 
 function detect(){
     let command = document.getElementById("input").value;
@@ -58,6 +63,9 @@ function detect(){
             alert("Błąd składni: operacja niedozwolona");
             return;
     }//switch
+    myChart.data.datasets[0].data = [state[0][1], state[1][1], state[2][1]];
+    myChart.data.datasets[1].data = [total[0][1], total[1][1], total[2][1]];
+    myChart.update();
 }// detect()
 
 function set(args){
@@ -92,11 +100,13 @@ function set(args){
                     case "hiland":
                     case "Hiland":
                         state[0][1] = parseInt(data[2]);
+                        total[0][1] = parseInt(data[2]);
                         break;
 
                     case "indiana":
                     case "Indiana":
                         state[1][1] = parseInt(data[2]);
+                        total[1][1] = parseInt(data[2]);
                         break;
 
                     default:
@@ -111,6 +121,7 @@ function set(args){
                     case "jivr":
                     case "JIVR":
                         state[2][1] = parseInt(data[2]);
+                        total[2][1] = parseInt(data[2]);
                         break;
 
                     default:
