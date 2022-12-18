@@ -1,0 +1,35 @@
+node index.mjs 15 23
+=> 38
+
+node zad2.js test.txt
+=> test.txt jest plikiem
+=> To jest zawartość pliku testowego
+
+node zad2.js test
+=> test jest katalogiem
+
+
+- Użyć po uruchomieniu następnego polecenia
+
+npx mocha --require node_modules/esm
+=> 7 passing
+
+
+- Użyć w osobnym terminalu
+
+node zad3.js
+=> The server was started on port 8000
+=>
+=> Po otworzeniu localhost:8000 w przeglądarce:
+=> Dla "test" w inpucie:
+=> To jest katalog.
+=>
+=> Dla test.txt w inpucie:
+=> To jest plik.
+=> Zawartośc pliku:
+=> To jest zawartość pliku testowego
+=>
+=> Dla asdasdasda w inpucie:
+=> Plik nie istnieje.
+
+
