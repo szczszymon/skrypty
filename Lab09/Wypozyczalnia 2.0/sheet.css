@@ -1,0 +1,106 @@
+.side-pic-animate {
+    animation: wiggle 40s linear infinite;
+
+}
+
+@keyframes wiggle {
+    0% {
+        transform: skew(0deg) translateX(0);
+    }
+
+    2% {
+        transform: skew(0deg) translateX(0);
+    }
+
+    11% {
+        transform: skew(0deg, 35deg) translateX(-50px);
+    }
+
+    12% {
+        transform: skew(0deg, 35deg) translateX(-50px);
+    }
+
+    18% {
+        transform: skew(0deg, -35deg) translateX(-100px);
+    }
+
+    19% {
+        transform: skew(0deg, -35deg) translateX(-100px);
+    }
+
+    25% {
+        transform: skew(0deg, 0deg) translateX(-75px);
+    }
+
+    27% {
+        transform: skew(0deg, 0deg) translateX(-75px);
+    }
+
+    36% {
+        transform: skew(0deg, 35deg) translateX(-25px);
+    }
+
+    37% {
+        transform: skew(0deg, 35deg) translateX(-25px);
+    }
+
+    43% {
+        transform: skew(0deg, -35deg) translateX(25px);
+    }
+
+    44% {
+        transform: skew(0deg, -35deg) translateX(25px);
+    }
+
+    50% {
+        transform: skew(0deg, 0deg) translateX(0px);
+    }
+
+    52% {
+        transform: skew(0deg, 0deg) translateX(0px);
+    }
+
+    61% {
+        transform: skew(0deg, -35deg) translateX(50px);
+    }
+
+    62% {
+        transform: skew(0deg, -35deg) translateX(50px);
+    }
+
+    68% {
+        transform: skew(0deg, 35deg) translateX(100px);
+    }
+
+    69% {
+        transform: skew(0deg, 35deg) translateX(100px);
+    }
+
+    75% {
+        transform: skew(0deg, 0deg) translateX(75px);
+    }
+
+    77% {
+        transform: skew(0deg, 0deg) translateX(75px);
+    }
+
+    86% {
+        transform: skew(0deg, -35deg) translateX(25px);
+    }
+
+    87% {
+        transform: skew(0deg, -35deg) translateX(25px);
+    }
+
+    93% {
+        transform: skew(0deg, 35deg) translateX(-25px);
+    }
+
+    94% {
+        transform: skew(0deg, 35deg) translateX(-25px);
+    }
+
+    100% {
+        transform: skew(0deg, 0deg) translateX(0px);
+    }
+}
