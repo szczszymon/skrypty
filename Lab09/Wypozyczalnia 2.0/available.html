@@ -94,9 +94,53 @@
     </nav>
 
     <!-- Logo -->
-    <canvas id="canvas" width="200" height="200" class="float-sm-none float-md-start sticky-md-top m-md-3" ondblclick="alert('switch na formsa here');">
+    <canvas id="canvas" width="200" height="200" class="float-sm-none float-md-start sticky-md-top m-md-3" style="cursor: pointer; z-index: 0;" data-bs-toggle="offcanvas" data-bs-target="#offForm1" aria-controls="offForm1">
         It looks like your browser does not support the "canvas" element
     </canvas>
+
+    <!-- Form dodania pojazdu -->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offForm1" aria-labelledby="form1Label">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="form1Label">Panel dodawania pojazdu</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <form>
+                <div class="mb-3">
+                    <label for="vnameInput" class="form-label">Nazwa pojazdu</label>
+                    <input type="text" class="form-control" id="vnameInput">
+                </div>
+
+                <div class="mb-3">
+                    <label for="descInput" class="form-label">Opis pojazdu</label>
+                    <input type="text" class="form-control" id="descInput">
+                </div>
+
+                <div class="mb-3">
+                    <label for="picInput" class="form-label">Nazwa zdjęcia</label>
+                    <input type="text" class="form-control" id="picInput">
+                </div>
+
+                <div class="mb-3">
+                    <label for="quanInput" class="form-label">Ilość dostępnych sztuk</label>
+                    <input type="number" class="form-control" id="quanInput">
+                </div>
+
+                <div class="mb-3">
+                    <label for="priceInput" class="form-label">Cena zakupu</label>
+                    <input type="number" class="form-control" id="priceInput">
+                </div>
+
+                <div class="mb-3">
+                    <label for="borrowInput" class="form-label">Cena wypożyczenia</label>
+                    <input type="number" class="form-control" id="borrowInput">
+                </div>
+
+                <button type="button" class="btn btn-primary btn-dark" data-bs-dismiss="offcanvas" aria-label="Dodaj pojazd" onclick="add();">Dodaj</button>
+            </form>
+        </div>
+    </div>
 
 
     <!-- Main Content -->
@@ -109,9 +153,9 @@
             <div class="container-fluid">
                 <!-- Zakładki -->
                 <div class="m-auto">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-dark" onclick="change(0)">Rower górski Hiland</button>
-                        <button type="button" class="btn btn-dark" onclick="change(1)">Rower wyścigowy Indiana</button>
+                    <div class="btn-group" role="group" aria-label="Basic example" id="vehNames">
+                        <button type="button" class="btn btn-dark" onclick="change(0)">Rower wyścigowy Hiland</button>
+                        <button type="button" class="btn btn-dark" onclick="change(1)">Rower górski Indiana</button>
                         <button type="button" class="btn btn-dark" onclick="change(2)">Hulajnoga elektryczna JIVR</button>
                     </div>
                 </div>
@@ -125,19 +169,48 @@
                             </div>
 
                             <div class="col-md-8">
-                                <div class="card-body">
-                                    <h2 class="card-title">Rower górski Hiland</h2>
-                                    <p class="card-text">Tekst o rowerze hiland / stan</p>
-                                    <p class="card-text"><b>Cena zakupu: 1200 PLN</b></p>
+                                <div class="card-body" id="vehInfo">
+                                    <h2 class="card-title">Rower wyścigowy Hiland</h2>
+                                    <p class="card-text">Ten rower ma wysokiej jakości ultralekką aluminiową ramę i wewnętrzną konstrukcję z drutu. Układ hamulcowy składa się z podwójnych hamulców zaciskowych. 3 x 7-biegowa dźwignia zmiany biegów Shimano zapewnia pełną kontrolę w każdej sytuacji. </p>
+                                    <p class="card-text"><b id="shForm2" style="cursor: pointer;" data-bs-toggle="offcanvas" data-bs-target="#offForm2" aria-controls="offForm2" onclick="document.getElementById('vehID').value = 0;">Liczba dostępnych sztuk: 2</b></p>
+                                    <p class="card-text"><b>Cena zakupu: 1399 PLN</b></p>
                                     <p class="card-text"><b>Cena wypożyczenia: 3 PLN /min</b></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Form wypożyczenia -->
+                <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offForm2" aria-labelledby="form2Label">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="form2Label">Dane wypożyczającego</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body">
+                        <form>
+                            <label for="vehID" style="display: none;">Type of vehicle<input type="number" id="vehID" style="display: none;"></label>
+
+                            <div class="mb-3">
+                                <label for="nameInput" class="form-label">Imię</label>
+                                <input type="text" class="form-control" id="nameInput">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="surnameInput" class="form-label">Nazwisko</label>
+                                <input type="text" class="form-control" id="surnameInput">
+                            </div>
+
+                            <button type="button" class="btn btn-primary btn-dark" data-bs-dismiss="offcanvas" aria-label="Wypożycz i zamknij" onclick="borrow();">Wypożycz</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- 2 sekcja -->
         <div class="container-fluid mb-sm-2 mb-md-3 mb-lg-4">
             <!-- Block Title -->
             <h1 class="m-sm-2 m-md-3 m-lg-4">Wypożyczone pojazdy</h1>
@@ -157,22 +230,20 @@
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                             <div class="accordion-body">
 
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/hiland.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Rower górski Hiland</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 4</p>
+                                <div class="row row-cols-1 row-cols-md-3 g-4" id="MarzenaNowak">
+                                    <div class="col" style="cursor: pointer;" onclick="ret(0, 0)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/hiland.jpg" class="card-img-top" alt="hiland">
+                                            <div class="card-body bg-dark text-white">
+                                                <h5 class="card-title">Rower wyścigowy Hiland</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/scooter.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
+                                    <div class="col" style="cursor: pointer;" onclick="ret(0, 2)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/scooter.jpg" class="card-img-top" alt="jivr">
+                                            <div class="card-body bg-dark text-white">
                                                 <h5 class="card-title">Hulajnoga elektryczna JIVR</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 2</p>
                                             </div>
                                         </div>
                                     </div>
@@ -193,31 +264,28 @@
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                             <div class="accordion-body">
 
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/hiland.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Rower górski Hiland</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 2</p>
+                                <div class="row row-cols-1 row-cols-md-3 g-4" id="JanKowalski">
+                                    <div class="col" style="cursor: pointer;" onclick="ret(1, 0)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/hiland.jpg" class="card-img-top" alt="hiland">
+                                            <div class="card-body bg-dark text-white">
+                                                <h5 class="card-title">Rower wyścigowy Hiland</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/indiana.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Rower wyścigowy Indiana</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 1</p>
+                                    <div class="col" style="cursor: pointer;" onclick="ret(1, 1)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/indiana.jpg" class="card-img-top" alt="indiana">
+                                            <div class="card-body bg-dark text-white">
+                                                <h5 class="card-title">Rower górski Indiana</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/scooter.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
+                                    <div class="col" style="cursor: pointer;" onclick="ret(1, 2)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/scooter.jpg" class="card-img-top" alt="jivr">
+                                            <div class="card-body bg-dark text-white">
                                                 <h5 class="card-title">Hulajnoga elektryczna JIVR</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 4</p>
                                             </div>
                                         </div>
                                     </div>
@@ -227,24 +295,23 @@
                         </div>
                     </div>
 
-                    <!-- Anna Węgiel -->
+                    <!-- Anna Chmiel -->
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                Anna Węgiel
+                                Anna Chmiel
                             </button>
                         </h2>
 
                         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
                             <div class="accordion-body">
 
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                                    <div class="col">
-                                        <div class="card h-100">
-                                            <img src="Pictures/indiana.jpg" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Rower wyścigowy Indiana</h5>
-                                                <p class="card-text">Ilość wypożyczonych sztuk: 1</p>
+                                <div class="row row-cols-1 row-cols-md-3 g-4" id="AnnaChmiel">
+                                    <div class="col" style="cursor: pointer;" onclick="ret(2, 1)">
+                                        <div class="card h-60">
+                                            <img src="Pictures/indiana.jpg" class="card-img-top" alt="indiana">
+                                            <div class="card-body bg-dark text-white">
+                                                <h5 class="card-title">Rower górski Indiana</h5>
                                             </div>
                                         </div>
                                     </div>
