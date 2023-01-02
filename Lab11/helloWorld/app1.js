@@ -3,6 +3,7 @@ const express = require('express'),
     logger = require('morgan');
 const app = express();
 const fs = require('fs');
+const MongoClient = require('mongodb').MongoClient;
 var x = 1;
 var y = 2;
 
@@ -16,15 +17,50 @@ app.get('/', function(req, res) {
     res.send(`<p>${x} + ${y} = ${x + y}</p>`);
 });
 
+const url = 'mongodb://localhost:27017';
+const dbName = 'obliczenia';
+let db;
+const client = new MongoClient(url, { useNewUrlParser: true });
+client.connect((err) => {
+    if (err) {
+        console.error(err);
+        process.exit(1);
+    }
+    db = client.db(dbName);
+});
+
+app.get('/calculate/:operation/:x/:y', function(req, res) {
+    const operation = req.params.operation;
+    const x = parseInt(req.params.x, 10);
+    const y = parseInt(req.params.y, 10);
+
+    let result;
+    switch (operation) {
+        case '+':
+            result = x + y;
+            break;
+        case '-':
+            result = x - y;
+            break;
+        case '*':
+            result = x * y;
+            break;
+        case '/':
+            result = x / y;
+            break;
+    }// switch
+
+    db.collection('obliczenia').insertOne({ operation, x, y });
+
+    res.send(`<p>${x} ${operation} ${y} = ${result}</p>`);
+});
+
 app.get('/json/:name', function (req, res) {
-    // Pobierz nazwę pliku JSON z parametru ścieżki
     const fileName = req.params.name;
 
-    // Wczytaj zawartość pliku JSON o podanej nazwie
     const data = fs.readFileSync(`${fileName}.json`);
     const operations = JSON.parse(data);
 
-    // Oblicz wynik dla każdej operacji
     for (const operation of operations) {
         switch (operation.operation) {
             case '+':
@@ -42,7 +78,6 @@ app.get('/json/:name', function (req, res) {
         }
     }
 
-// Wygeneruj tabelę HTML z wynikami operacji
     const table = `<table> <tr> <th>X</th> <th>Operacja</th> <th>Y</th> <th>Wynik</th> </tr> ${operations.map(operation =>`
         <tr>
             <td>${operation.x}</td>
@@ -66,7 +101,6 @@ app.get('/json/:name', function (req, res) {
 
     const content = table + styl;
 
-// Wyślij tabelę do przeglądarki
     res.send(content);
 });
 
